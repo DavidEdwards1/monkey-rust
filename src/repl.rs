@@ -18,7 +18,7 @@ pub fn start() -> Result<(), Box<dyn Error>> {
         let mut input = String::new();
         io::stdin().read_line(&mut input)?;
 
-        let mut lexer = Lexer::new(&input);
+        let mut lexer = Lexer::new(input);
         let mut token = lexer.next_token();
 
         while token.token_type != TokenType::Eof {

@@ -1,14 +1,14 @@
 use crate::token::{Token, TokenType};
 
-pub struct Lexer <'a>{
-    input: &'a String,
+pub struct Lexer {
+    input: String,
     position: usize,
     read_position: usize,
     ch: Option<char>,
 }
 
-impl<'a> Lexer <'a>{
-    pub fn new(input: &'a String) -> Lexer <'a>{
+impl Lexer {
+    pub fn new(input: String) -> Lexer {
         let mut lexer = Lexer {
             input,
             position: 0,
@@ -153,13 +153,13 @@ impl<'a> Lexer <'a>{
     }
 
     fn read_char(&mut self) {
-        self.ch = Lexer::char_at(self.input, self.read_position);
+        self.ch = Lexer::char_at(&self.input, self.read_position);
         self.position = self.read_position;
         self.read_position += 1;
     }
 
     fn peek_char(&self) -> Option<char>{
-        Lexer::char_at(self.input, self.read_position)
+        Lexer::char_at(&self.input, self.read_position)
     }
 
     fn char_at(input: &String, index: usize) -> Option<char> {
@@ -233,7 +233,7 @@ mod tests {
     #[test]
     fn test_read_char() {
         let input = String::from("Hello");
-        let mut lexer = Lexer::new(&input);
+        let mut lexer = Lexer::new(input);
 
         assert_eq!(lexer.ch, Some('H'));
         lexer.read_char();
@@ -404,7 +404,7 @@ mod tests {
         ];
 
         for test in tests {
-            let mut lexer = Lexer::new(&test.input);
+            let mut lexer = Lexer::new(test.input);
 
             for expected_token in test.tokens {
                 let token = lexer.next_token();
