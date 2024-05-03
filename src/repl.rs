@@ -1,9 +1,9 @@
-use std::{env, io};
 use std::error::Error;
 use std::io::Write;
+use std::{env, io};
 
-use crate::token::TokenType;
 use crate::lexer::Lexer;
+use crate::token::TokenType;
 
 const PROMPT: &str = ">>";
 
